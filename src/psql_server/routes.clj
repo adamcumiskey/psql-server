@@ -1,13 +1,15 @@
 (ns psql-server.routes
   (:require [compojure.core :refer [defroutes GET POST ANY]]
             [compojure.coercions :refer [as-uuid]]
+            [mount.core :refer [defstate]]
             [psql-server.db :as db]
             [psql-server.middleware :as middleware]))
 
 (defroutes all-routes*
   (GET "/people" [] (db/get-people))
   (GET "/people/:id" [id :<< as-uuid] (db/get-person id))
-  (POST "/echo" request (str request)))
+  (POST "/echo" request (str request))
+  (GET "/health" [] "OK"))
 
 (def all-routes
   (-> #'all-routes*
@@ -15,5 +17,5 @@
       (middleware/wrap-content-type "application/json")
       (middleware/wrap-json)))
 
-(defroutes routes
-  (ANY "*" [] all-routes))
+(defstate routes
+  :start (defroutes all (ANY "*" [] all-routes)))

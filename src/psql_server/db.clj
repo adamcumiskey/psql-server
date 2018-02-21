@@ -2,11 +2,11 @@
   (:require [clojure.java.jdbc :as sql]
             [clojure.tools.logging :as log]
             [clojure.string :as string]
-            [psql-server.env :as env]))
+            [psql-server.env :refer [env]]))
 
-(def db-spec {:connection-uri (str "jdbc:" env/db-url 
-                              "?user=" env/db-user 
-                              "&password=" env/db-password)})
+(def db-spec {:connection-uri (str "jdbc:" (:db-url env)
+                              "?user=" (:db-user env) 
+                              "&password=" (:db-password env))})
 
 (defn do-query [query]
   (sql/query db-spec [query]))
