@@ -7,13 +7,11 @@ services:
     env_file: .env
   web:
     build: .
-    environment: &envs
-      - PORT=${PORT}
-      - CLJ_ENV=${CLJ_ENV}
-      - DB_URL=${DB_URL}
     command: lein run
+    env_file: .env
     ports:
-      - "3000:3000"
+      - "${PORT}:${PORT}"
+      - "${LEIN_REPL_PORT}:${LEIN_REPL_PORT}"
     depends_on:
       - db
     volumes:
