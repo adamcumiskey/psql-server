@@ -6,8 +6,8 @@
             [psql-server.middleware :as middleware]))
 
 (defroutes all-routes*
-  (GET "/people" [] (get-people))
-  (GET "/people/:id" [id :<< as-uuid] (get-person id))
+  (GET "/users" [] (get-objects "users"))
+  (GET "/users/:id" [id :<< as-uuid] (get-object-by-id "users" id))
   (POST "/echo" request (str request))
   (GET "/health" [] "OK"))
 

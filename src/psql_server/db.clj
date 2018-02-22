@@ -27,8 +27,3 @@
 (defn get-object-by-id [table id]
   (do-query (str "select * from " table " as t where t.id = \"" id "\"")))
 
-(defn get-person [id]
-  (get-object-by-id "person" id))
-
-(defn get-people []
-  (get-objects "person"))
