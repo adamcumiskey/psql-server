@@ -9,10 +9,15 @@
                  [org.clojure/data.json "0.2.6"]
                  [com.mchange/c3p0 "0.9.5.2"]
                  [mount "0.1.12"]
+                 [tolitius/mount-up "0.1.1"]
                  [org.postgresql/postgresql "9.4-1201-jdbc41"] 
                  [ring/ring-core "1.6.3"]
                  [ring/ring-jetty-adapter "1.4.0"]
                  [compojure "1.4.0"]]
   :main ^:skip-aot psql-server.core
   :target-path "target/%s"
-  :profiles {:uberjar {:aot :all}})
+  :profiles {:uberjar {:aot :all}
+             :dev {:dependencies [[org.clojure/tools.namespace "0.3.0-alpha1"]
+                                  [tolitius/mount-up "0.1.1"]]
+                   :source-paths ["dev"]}})
+

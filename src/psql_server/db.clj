@@ -4,26 +4,19 @@
             [clojure.string :as string]
             [mount.core :refer [defstate]]
             [psql-server.env :refer [env]])
-  (:import com.mchange.v2.c3p0.ComboPooledDataSource))
-
-(def db-spec {:connection-uri (str "jdbc:" (:db-url env)
-                              "?user=" (:db-user env) 
-                              "&password=" (:db-password env))
-              :classname "org.postgresql.Driver"
-              :subprotocol "postgresql"
-              :subname (:db-url env)
-              :db-user (:db-user env)
-              :db-password (:db-password env)})
+  (:import com.mchange.v2.c3p0.ComboPooledDataSource
+           org.postgresql.Driver))
 
 (defstate db
   :start (let [pool (doto (ComboPooledDataSource.)
-                      (.setDriverClass (:classname db-spec))
-                      (.setJdbcUrl (str "jdbc" (:subprotocol db-spec) ":" (:subname db-spec)))
-                      (.setUser (:db-user db-spec))
-                      (.setPassword (:db-password db-spec))
+                      (.setDriverClass "org.postgresql.Driver")
+                      (.setJdbcUrl (str "jdbc:postgresql://" (:db-url env)))
+                      (.setUser (:db-user env))
+                      (.setPassword (:db-password env))
                       (.setMaxIdleTimeExcessConnections (* 30 60))
                       (.setMaxIdleTime (* 3 60 60)))]
-           {:datasource pool}))
+           {:datasource pool})
+  :stop (.close (:datasource db)))
 
 (defn do-query [query]
   (sql/query db [query]))
