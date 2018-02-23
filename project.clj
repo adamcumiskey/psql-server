@@ -7,7 +7,10 @@
                  [org.clojure/java.jdbc "0.6.1"]
                  [org.clojure/tools.logging "0.3.1"]
                  [org.clojure/data.json "0.2.6"]
+                 [com.layerware/hugsql "0.4.8"]
                  [com.mchange/c3p0 "0.9.5.2"]
+                 [org.slf4j/slf4j-log4j12 "1.7.9"]
+                 [migratus "1.0.6"]
                  [mount "0.1.12"]
                  [tolitius/mount-up "0.1.1"]
                  [org.postgresql/postgresql "9.4-1201-jdbc41"] 
@@ -19,5 +22,13 @@
   :profiles {:uberjar {:aot :all}
              :dev {:dependencies [[org.clojure/tools.namespace "0.3.0-alpha1"]
                                   [tolitius/mount-up "0.1.1"]]
-                   :source-paths ["dev"]}})
-
+                   :source-paths ["dev"]}}
+  :plugins [[migratus-lein "0.5.7"]]
+  :migratus {:store :database
+             :migration-dir "resources/migrations"
+             :db ~(str "jdbc:postgresql://"
+                       (get (System/getenv) "DB_HOST") ":"
+                       (get (System/getenv) "DB_PORT") "/"
+                       (get (System/getenv) "DB_NAME") "?"
+                       "user=" (get (System/getenv) "POSTGRES_USER") "&"
+                       "password=" (get (System/getenv) "POSTGRES_PASSWORD"))})
