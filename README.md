@@ -7,7 +7,8 @@ Template for a Clojure web server using a PostgreSQL database. Uses [mount](http
   1. Ensure that Docker and Leinengen are installed on your machine.
   1. Create an `.env` file based on [template.env](template.env) to configure your local environment.
   1. Run `docker-compose build` to build the image.
-  1. Run `docker-compose up` to start the containers.
+  1. Run `docker-compose run web lein migratus migrate` to migrate the database to the latest schema.
+  1. Start the container by running `docker-compose up`.
 
 ## Development
 
