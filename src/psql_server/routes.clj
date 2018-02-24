@@ -2,12 +2,10 @@
   (:require [compojure.core :refer [defroutes GET POST ANY]]
             [compojure.coercions :refer [as-uuid]]
             [mount.core :refer [defstate]]
-            [psql-server.db :refer :all]
+            [psql-server.db :refer [db]]
             [psql-server.middleware :as middleware]))
 
 (defroutes all-routes*
-  (GET "/users" [] (get-objects "users"))
-  (GET "/users/:id" [id :<< as-uuid] (get-object-by-id "users" id))
   (POST "/echo" request (str request))
   (GET "/health" [] "OK"))
 
@@ -19,3 +17,4 @@
 
 (defstate routes
   :start (defroutes all (ANY "*" [] all-routes)))
+

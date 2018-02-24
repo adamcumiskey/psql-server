@@ -2,28 +2,17 @@
   (:require [clojure.java.jdbc :as sql]
             [clojure.tools.logging :as log]
             [clojure.string :as string]
+            [conman.core :as conman]
             [mount.core :refer [defstate]]
-            [psql-server.env :refer [env]])
-  (:import com.mchange.v2.c3p0.ComboPooledDataSource
-           org.postgresql.Driver))
+            [psql-server.env :refer [env]]))
 
-(defstate db
-  :start (let [pool (doto (ComboPooledDataSource.)
-                      (.setDriverClass "org.postgresql.Driver")
-                      (.setJdbcUrl (str "jdbc:postgresql://" (:db-url env)))
-                      (.setUser (:db-user env))
-                      (.setPassword (:db-password env))
-                      (.setMaxIdleTimeExcessConnections (* 30 60))
-                      (.setMaxIdleTime (* 3 60 60)))]
-           {:datasource pool})
-  :stop (.close (:datasource db)))
+(defstate ^:dynamic *db*
+  :start (conman/connect! {:jdbc-url (:jdbc-url env)})
+  :stop (conman/disconnect! *db*))
 
-(defn do-query [query]
-  (sql/query db [query]))
-
-(defn get-objects [table]
-  (do-query (str "select * from " table)))
-
-(defn get-object-by-id [table id]
-  (do-query (str "select * from " table " as t where t.id = \"" id "\"")))
+(def command-files (->> (clojure.java.io/file "./db/commands")
+                       file-seq
+                       (filter #(.isFile %))
+                       (map #(str "commands/" (.getName %)))))
+(eval `(conman/bind-connection *db* ~@command-files))
 
