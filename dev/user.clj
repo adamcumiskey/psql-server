@@ -4,9 +4,10 @@
             [mount-up.core :refer [on-upndown log]]
             [migratus.core :as migratus]
             [psql-server.env :refer [env]]
-            [psql-server.db :refer [db]]))
+            [psql-server.db :as db]))
 
-(mount/start)
+;; Log mount state changes
+(on-upndown :info log :before)
 
 (def migratus-config {:store :database
                       :migration-dir "db/migrations"
@@ -27,5 +28,3 @@
 (defn create [name]
   (migratus/create migratus-config name))
 
-;; Log mount state changes
-(on-upndown :info log :before)

@@ -1,6 +1,11 @@
 (ns psql-server.middleware
   (:require [clojure.data.json :as json]))
 
+(extend-type java.sql.Timestamp
+  json/JSONWriter
+  (-write [date out]
+    (json/-write (str date) out)))
+
 (defn content-type-response [response content-type]
   (assoc-in response [:headers "Content-Type"] content-type))
 (defn wrap-content-type [handler content-type]

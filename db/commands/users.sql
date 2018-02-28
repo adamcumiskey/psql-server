@@ -2,11 +2,11 @@
 -- Users
 
 -- :name insert-user :! :n
-insert into users (first_name, last_name, email)
-values (:first_name, :last_name, :email)
+insert into users (name, email)
+values (:name, :email)
 
 -- :name insert-users :! :n
-insert into users (first_name, last_name, email)
+insert into users (name, email)
 values :tuple*:users
 
 -- :name all-users :? :*

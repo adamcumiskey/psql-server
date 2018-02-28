@@ -1,11 +1,13 @@
 (ns psql-server.routes
   (:require [compojure.core :refer [defroutes GET POST ANY]]
-            [compojure.coercions :refer [as-uuid]]
+            [compojure.coercions :refer [as-int]]
             [mount.core :refer [defstate]]
-            [psql-server.db :refer [db]]
+            [psql-server.db :as db]
             [psql-server.middleware :as middleware]))
 
 (defroutes all-routes*
+  (GET "/users" request (db/all-users))
+  (GET "/users/:id" [id :<< as-int] '(db/user-by-id {:id id}))
   (POST "/echo" request (str request))
   (GET "/health" [] "OK"))
 
