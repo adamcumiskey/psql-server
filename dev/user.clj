@@ -3,15 +3,20 @@
             [mount.core :as mount]
             [mount-up.core :refer [on-upndown log]]
             [migratus.core :as migratus]
-            [psql-server.env :refer [env]]
             [psql-server.db :as db]))
 
 ;; Log mount state changes
 (on-upndown :info log :before)
 
+(defn start []
+  (mount/start))
+
+(defn stop []
+  (mount/stop))
+
 (def migratus-config {:store :database
-                      :migration-dir "db/migrations"
-                      :db (:jdbc-url env)})
+                      :migration-dir "resources/migrations"
+                      :db db/jdbc-url})
 
 (defn migrate []
   (migratus/migrate migratus-config))

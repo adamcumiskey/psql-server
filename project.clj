@@ -9,6 +9,7 @@
                  [org.clojure/data.json "0.2.6"]
                  [com.layerware/hugsql "0.4.8"]
                  [conman "0.7.6"]
+                 [environ "1.1.0"]
                  [org.slf4j/slf4j-log4j12 "1.7.9"]
                  [migratus "1.0.6"]
                  [mount "0.1.12"]
@@ -19,7 +20,6 @@
                  [compojure "1.4.0"]]
   :main ^:skip-aot psql-server.core
   :target-path "target/%s"
-  :resource-paths ["db"]
   :profiles {:uberjar {:aot :all}
              :dev {:dependencies [[org.clojure/tools.namespace "0.3.0-alpha1"]
                                   [tolitius/mount-up "0.1.1"]]
