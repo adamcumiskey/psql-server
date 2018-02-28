@@ -4,15 +4,22 @@
             [clojure.string :as string]
             [conman.core :as conman]
             [mount.core :refer [defstate]]
-            [psql-server.env :refer [env]]))
+            [environ.core :refer [env]]))
+
+(def jdbc-url (str "jdbc:postgresql://" 
+                   (env :db-host) ":"
+                   (env :db-port) "/"
+                   (env :db-name) "?"
+                   "user=" (env :postgres-user)
+                   "&password=" (env :postgres-password)))
 
 (defstate ^:dynamic *db*
-  :start (conman/connect! {:jdbc-url (:jdbc-url env)})
+  :start (conman/connect! {:jdbc-url jdbc-url})
   :stop (conman/disconnect! *db*))
 
-(def command-files (->> (clojure.java.io/file "./db/commands")
+(def sql-files (->> (clojure.java.io/file "src/sql")
                        file-seq
                        (filter #(.isFile %))
-                       (map #(str "commands/" (.getName %)))))
-(eval `(conman/bind-connection *db* ~@command-files))
+                       (map #(str "sql/" (.getName %)))))
+(eval `(conman/bind-connection *db* ~@sql-files))
 

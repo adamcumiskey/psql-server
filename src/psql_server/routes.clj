@@ -7,7 +7,7 @@
 
 (defroutes all-routes*
   (GET "/users" request (db/all-users))
-  (GET "/users/:id" [id :<< as-int] '(db/user-by-id {:id id}))
+  (GET "/users/:id" [id :<< as-int] (db/user-by-id {:id id}))
   (POST "/echo" request (str request))
   (GET "/health" [] "OK"))
 
