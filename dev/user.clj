@@ -1,7 +1,8 @@
 (ns user
   (:require [clojure.tools.namespace.repl :refer (refresh refresh-all)]
+            [clojure.tools.logging :as log]
             [mount.core :as mount]
-            [mount-up.core :refer [on-upndown log]]
+            [mount-up.core :as mount-up]
             [migratus.core :as migratus]
             [environ.core :refer [env]] 
             [psql-server.db :as db]
@@ -9,11 +10,14 @@
             [clojure.java.jdbc :as sql]))
 
 ;; Log mount state changes
-(on-upndown :info log :before)
+(mount-up/on-upndown :info mount-up/log :before)
 
 (defn seed [file]
   (conman/with-transaction [db/connection]
-    (sql/db-do-commands db/connection true (clojure.string/split (slurp file) #";"))))
+    (try
+      (sql/db-do-commands db/connection true (clojure.string/split (slurp file) #";"))
+      (catch Exception e 
+        (log/error (.getNextException e))))))
 
 (defn start []
   (mount/start))
