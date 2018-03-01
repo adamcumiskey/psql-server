@@ -9,7 +9,7 @@ values (:name, :email)
 insert into users (name, email)
 values :tuple*:users
 
--- :name all-users :? :*
+-- :name get-all-users :? :*
 select * from users
 order by id
 

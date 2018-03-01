@@ -7,7 +7,7 @@
             [psql-server.middleware :as middleware]))
 
 (defroutes all-routes*
-  (GET "/users" request (db/all-users))
+  (GET "/users" request (db/get-all-users))
   (GET "/users/:id" [id :<< as-int] (str (db/user-by-id {:id id})))
   (POST "/echo" request (str request))
   (GET "/health" [] "OK"))

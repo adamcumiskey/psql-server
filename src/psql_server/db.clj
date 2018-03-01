@@ -13,13 +13,13 @@
                    "user=" (env :postgres-user)
                    "&password=" (env :postgres-password)))
 
-(defstate ^:dynamic *db*
+(defstate ^:dynamic connection 
   :start (conman/connect! {:jdbc-url jdbc-url})
-  :stop (conman/disconnect! *db*))
+  :stop (conman/disconnect! connection))
 
 (def sql-files (->> (clojure.java.io/file "src/sql")
-                       file-seq
-                       (filter #(.isFile %))
-                       (map #(str "sql/" (.getName %)))))
-(eval `(conman/bind-connection *db* ~@sql-files))
+                    file-seq
+                    (filter #(.isFile %))
+                    (map #(str "sql/" (.getName %)))))
+(eval `(conman/bind-connection connection ~@sql-files))
 
