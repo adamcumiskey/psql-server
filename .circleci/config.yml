@@ -33,12 +33,12 @@ jobs:
       - run:
           name: Build application Docker image
           command: |
-            docker-compose build
+            docker-compose build --cache-from=app -t app .
       - run:
           name: Save Docker image layer cache
           command: |
             mkdir -p /caches
-            docker save -o /caches/app.tar psqlserver_web
+            docker save -o /caches/app.tar app
       - save_cache:
           key: v1-{{ .Branch }}-{{ epoch }}
           paths:
