@@ -29,7 +29,7 @@
   (migratus/migrate migratus-config))
 
 (defn rollback []
-  (migratus/migrate migratus-config))
+  (migratus/rollback migratus-config))
 
 (defn bring-up [id]
   (migratus/up migratus-config id))
