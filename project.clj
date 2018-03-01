@@ -16,6 +16,7 @@
                  [tolitius/mount-up "0.1.1"]
                  [org.postgresql/postgresql "9.4-1201-jdbc41"] 
                  [ring/ring-core "1.6.3"]
+                 [ring/ring-json "0.4.0"]
                  [ring-logger "0.7.7"]
                  [ring/ring-jetty-adapter "1.4.0"]
                  [compojure "1.4.0"]]
