@@ -42,5 +42,6 @@ jobs:
       - run:
           name: Run tests
           command: |
-            cd app
+            ls
+            cd /app
             docker-compose run web lein test
