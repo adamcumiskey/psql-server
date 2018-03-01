@@ -27,6 +27,10 @@ jobs:
             set +o pipefail
             docker load -i /caches/app.tar | true
       - run:
+          name: Copy env file
+          command: |
+            cp /app/template.env /app/.env
+      - run:
           name: Build application Docker image
           command: |
             docker-compose build
@@ -42,5 +46,4 @@ jobs:
       - run:
           name: Run tests
           command: |
-            cp /app/template.env /app/.env
             docker-compose run web lein test
