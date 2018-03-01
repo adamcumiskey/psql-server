@@ -5,7 +5,7 @@
 version: 2
 jobs:
   build:
-    working_directory: /app
+    working_directory: /
     docker:
       - image: docker:17.05.0-ce-git
     steps:
@@ -19,29 +19,8 @@ jobs:
       - run:
           name: Set default env
           command: |
-            cp /app/template.env /app/.env
-      # Download and cache dependencies
-      - restore_cache:
-          keys:
-            - v1-{{ .Branch }}
-          paths:
-            - /caches/app.tar
-      - run:
-          name: Load Docker image layer cache
-          command: |
-            set +o pipefail
-            docker load -i /caches/app.tar | true
-      - run:
-          name: Build application Docker image
-          command: |
-            docker build --cache-from=app -t app .
-      - save_cache:
-          key: v1-{{ .Branch }}-{{ epoch }}
-          paths:
-            - /caches/app.tar
+            cp /template.env /.env
       - run:
           name: Run tests
           command: |
-            ls
-            cd /app
             docker-compose run web lein test
