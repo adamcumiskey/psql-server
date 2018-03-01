@@ -1,0 +1,16 @@
+version: '3'
+services:
+  db:
+    image: postgres
+    env_file: .env
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.test
+    command: lein test
+    env_file: .env
+    ports:
+      - "${PORT}:${PORT}"
+      - "${LEIN_REPL_PORT}:${LEIN_REPL_PORT}"
+    depends_on:
+      - db
