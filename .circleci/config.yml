@@ -34,7 +34,6 @@ jobs:
           name: Build application Docker image
           command: |
             docker-compose build
-            docker images
       - run:
           name: Save Docker image layer cache
           command: |
@@ -47,4 +46,4 @@ jobs:
       - run:
           name: Run tests
           command: |
-            docker-compose run web lein test
+            docker-compose -f docker-compose.test.yml run web lein test
