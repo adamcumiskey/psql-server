@@ -33,7 +33,7 @@ jobs:
       - run:
           name: Build application Docker image
           command: |
-            docker-compose build --cache-from=app -t app .
+            docker build --cache-from=app -t app .
       - run:
           name: Save Docker image layer cache
           command: |
