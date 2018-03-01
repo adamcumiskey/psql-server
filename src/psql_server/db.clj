@@ -17,9 +17,9 @@
   :start (conman/connect! {:jdbc-url jdbc-url})
   :stop (conman/disconnect! connection))
 
-(def sql-files (->> (clojure.java.io/file "src/sql")
-                    file-seq
-                    (filter #(.isFile %))
-                    (map #(str "sql/" (.getName %)))))
-(eval `(conman/bind-connection connection ~@sql-files))
+(def query-files (->> (clojure.java.io/file "resources/queries")
+                      (file-seq)
+                      (filter #(.isFile %))
+                      (map #(str "queries/" (.getName %)))))
+(eval `(conman/bind-connection connection ~@query-files))
 
