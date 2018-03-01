@@ -1,5 +1,7 @@
 # PSQL Server
 
+[![CircleCI](https://circleci.com/gh/adamcumiskey/psql-server/tree/master.svg?style=svg&circle-token=4b5805c3dcea7774fa83b3157df70905b042cbcf)](https://circleci.com/gh/adamcumiskey/psql-server/tree/master)
+
 Template for a Clojure web server using a PostgreSQL database. Uses [mount](https://github.com/tolitius/mount) to manage service state.
 
 ## Installation
