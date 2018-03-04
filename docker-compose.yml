@@ -2,8 +2,6 @@ version: '3'
 services:
   db:
     image: postgres
-    volumes:
-      - ./db/:/docker-entrypoint-initdb.d/
     env_file: .env
   web:
     build: .

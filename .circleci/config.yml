@@ -15,6 +15,7 @@ jobs:
           name: Intstall dependencies
           command: |
             apk add --no-cache py-pip=9.0.0-r1
+            apk add --update make
             pip install docker-compose==1.12.0
       - restore_cache:
           keys:
@@ -31,9 +32,9 @@ jobs:
           command: |
             cp /app/template.env /app/.env
       - run:
-          name: Build application Docker image
+          name: Build application
           command: |
-            docker-compose build
+            make all
       - run:
           name: Save Docker image layer cache
           command: |
@@ -46,4 +47,5 @@ jobs:
       - run:
           name: Run tests
           command: |
-            docker-compose -f docker-compose.test.yml run web lein test
+            make migration ENV=ci_test
+            make test ENV=ci_test

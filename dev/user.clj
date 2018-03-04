@@ -12,13 +12,6 @@
 ;; Log mount state changes
 (mount-up/on-upndown :info mount-up/log :before)
 
-(defn seed [file]
-  (conman/with-transaction [db/connection]
-    (try
-      (sql/db-do-commands db/connection true (clojure.string/split (slurp file) #";"))
-      (catch Exception e 
-        (log/error (.getNextException e))))))
-
 (defn start []
   (mount/start))
 
