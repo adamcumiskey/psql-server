@@ -14,7 +14,7 @@
                  [migratus "1.0.6"]
                  [mount "0.1.12"]
                  [tolitius/mount-up "0.1.1"]
-                 [org.postgresql/postgresql "9.4-1201-jdbc41"] 
+                 [org.postgresql/postgresql "9.4-1201-jdbc41"]
                  [ring/ring-core "1.6.3"]
                  [ring/ring-json "0.4.0"]
                  [ring-logger "0.7.7"]
@@ -25,8 +25,11 @@
   :profiles {:uberjar {:aot :all}
              :dev {:dependencies [[org.clojure/tools.namespace "0.3.0-alpha1"]
                                   [tolitius/mount-up "0.1.1"]]
-                   :source-paths ["dev"]}}
-  :plugins [[migratus-lein "0.5.7"]]
+                   :source-paths ["dev"]
+                   :resource-paths ["resources"]}}
+  :plugins [[migratus-lein "0.5.7"]
+            [lein-auto "0.1.3"]
+            [lein-eftest "0.5.0"]]
   :migratus {:store :database
              :migration-dir "migrations"
              :db ~(str "jdbc:postgresql://"

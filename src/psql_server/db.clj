@@ -6,14 +6,14 @@
             [mount.core :refer [defstate]]
             [environ.core :refer [env]]))
 
-(def jdbc-url (str "jdbc:postgresql://" 
+(def jdbc-url (str "jdbc:postgresql://"
                    (env :db-host) ":"
                    (env :db-port) "/"
                    (env :db-name) "?"
                    "user=" (env :postgres-user)
                    "&password=" (env :postgres-password)))
 
-(defstate ^:dynamic connection 
+(defstate ^:dynamic connection
   :start (conman/connect! {:jdbc-url jdbc-url})
   :stop (conman/disconnect! connection))
 
@@ -23,3 +23,9 @@
                       (map #(str "queries/" (.getName %)))))
 (eval `(conman/bind-connection connection ~@query-files))
 
+(defn seed [file]
+  (conman/with-transaction [connection]
+    (try
+      (sql/db-do-commands connection true (clojure.string/split (slurp file) #";"))
+      (catch Exception e
+        (log/error (.getNextException e))))))
