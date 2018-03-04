@@ -1,15 +1,23 @@
 (ns psql-server.db-test
   (:require [clojure.test :refer :all]
+            [conman.core :as conman]
             [mount.core :as mount]
             [psql-server.db :as db]))
 
-(defn setup-db [f]
+(defn start-db [f]
   (mount/start)
-  (db/seed "resources/seeds/test.up.sql")
   (f)
-  (db/seed "resources/seeds/test.down.sql"))
+  (mount/stop))
 
-(use-fixtures :once setup-db)
+(defn seed-data [f]
+  (conman/with-transaction [db/connection]
+    (db/seed "resources/seeds/test.down.sql" db/connection)
+    (db/seed "resources/seeds/test.up.sql" db/connection)
+    (f)
+    (db/seed "resources/seeds/test.down.sql" db/connection)))
+
+(use-fixtures :once start-db)
+(use-fixtures :each seed-data)
 
 (deftest get-user-by-id
   (testing "get user by id"
@@ -30,3 +38,11 @@
              :name "Jane Doe"
              :email "jane.doe@gmail.com"}]
            (db/get-all-users)))))
+
+(deftest create-user
+  (testing "create user"
+    (db/insert-user {:name "Dave Jones" :email "dave.jones@gmail.com"})
+    (= ({:id 4
+        :name "Dave Jones"
+        :email "dave.jones@gmail.com"}
+        (db/user-by-id {:id 4})))))

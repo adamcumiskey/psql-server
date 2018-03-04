@@ -23,9 +23,12 @@
                       (map #(str "queries/" (.getName %)))))
 (eval `(conman/bind-connection connection ~@query-files))
 
-(defn seed [file]
-  (conman/with-transaction [connection]
+(defn seed
+  ([file connection]
     (try
       (sql/db-do-commands connection true (clojure.string/split (slurp file) #";"))
       (catch Exception e
-        (log/error (.getNextException e))))))
+        (log/error (.getNextException e)))))
+  ([file]
+    (conman/with-transaction [connection]
+      ((seed file connection)))))

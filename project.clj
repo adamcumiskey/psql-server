@@ -29,12 +29,12 @@
                    :resource-paths ["resources"]
                    :plugins [[migratus-lein "0.5.7"]
                             [lein-auto "0.1.3"]
-                            [lein-eftest "0.5.0"]]}}
-  :migratus {:store :database
-             :migration-dir "migrations"
-             :db ~(str "jdbc:postgresql://"
-                       (get (System/getenv) "DB_HOST") ":"
-                       (get (System/getenv) "DB_PORT") "/"
-                       (get (System/getenv) "POSTGRES_NAME") "?"
-                       "user=" (get (System/getenv) "POSTGRES_USER") "&"
-                       "password=" (get (System/getenv) "POSTGRES_PASSWORD"))})
+                            [lein-eftest "0.5.0"]]
+                   :migratus {:store :database
+                              :migration-dir "migrations"
+                              :db ~(str "jdbc:postgresql://"
+                                        (get (System/getenv) "DB_HOST") ":"
+                                        (get (System/getenv) "DB_PORT") "/"
+                                        (get (System/getenv) "POSTGRES_NAME") "?"
+                                        "user=" (get (System/getenv) "POSTGRES_USER") "&"
+                                        "password=" (get (System/getenv) "POSTGRES_PASSWORD"))}}})
