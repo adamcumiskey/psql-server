@@ -22,9 +22,9 @@
 (deftest get-user-by-id
   (testing "get user by id"
     (is (= {:id 1
-           :name "Adam Cumiskey"
-           :email "adam.cumiskey@gmail.com"}
-          (db/user-by-id {:id 1})))))
+            :name "Adam Cumiskey"
+            :email "adam.cumiskey@gmail.com"}
+           (db/user-by-id {:id 1})))))
 
 (deftest get-all-users
   (testing "get all users"
