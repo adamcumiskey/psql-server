@@ -41,8 +41,11 @@
 
 (deftest create-user
   (testing "create user"
-    (db/insert-user {:name "Dave Jones" :email "dave.jones@gmail.com"})
-    (= ({:id 4
-        :name "Dave Jones"
-        :email "dave.jones@gmail.com"}
-        (db/user-by-id {:id 4})))))
+    (let [user {:name "Dave Jones" :email "dave.jones@gmail.com"}
+          expected (assoc user :id 4)]
+      (db/insert-user user)
+      (is (= expected
+             (db/user-by-id {:id 4})))
+      (is (not= -1
+                (.indexOf (db/get-all-users)
+                          expected))))))
