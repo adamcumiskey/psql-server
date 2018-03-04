@@ -2,9 +2,6 @@ DOCKERFILE=docker-compose.yml
 ifeq ($(ENV), test)
 	DOCKERFILE=docker-compose.test.yml
 endif
-ifeq ($(ENV), ci_test)
-	DOCKERFILE=docker-compose.ci.test.yml
-endif
 
 all:
 	docker-compose -f ${DOCKERFILE} build
@@ -24,10 +21,15 @@ migration:
 rollback:
 	docker-compose -f ${DOCKERFILE} run web lein migratus rollback
 
+TEST_DOCKERFILE=docker-compose.test.yml
+ifeq ($(ENV), ci_test)
+	TEST_DOCKERFILE=docker-compose.ci.test.yml
+endif
+
 .PHONY: test
 test:
-	docker-compose -f ${DOCKERFILE} run web lein test
+	docker-compose -f ${TEST_DOCKERFILE} run web lein test
 
 test_runner:
-	docker-compose -f ${DOCKERFILE} run web lein auto eftest
+	docker-compose -f ${TEST_DOCKERFILE} run web lein auto eftest
 
