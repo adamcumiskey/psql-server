@@ -35,6 +35,6 @@
              :db ~(str "jdbc:postgresql://"
                        (get (System/getenv) "DB_HOST") ":"
                        (get (System/getenv) "DB_PORT") "/"
-                       (get (System/getenv) "DB_NAME") "?"
+                       (get (System/getenv) "POSTGRES_NAME") "?"
                        "user=" (get (System/getenv) "POSTGRES_USER") "&"
                        "password=" (get (System/getenv) "POSTGRES_PASSWORD"))})

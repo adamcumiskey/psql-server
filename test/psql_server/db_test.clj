@@ -4,7 +4,7 @@
             [psql-server.db :as db]))
 
 (defn setup-db [f]
-  (mount/start #'db/connection)
+  (mount/start)
   (db/seed "resources/seeds/test.up.sql")
   (f)
   (db/seed "resources/seeds/test.down.sql"))

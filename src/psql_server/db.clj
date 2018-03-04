@@ -9,7 +9,7 @@
 (def jdbc-url (str "jdbc:postgresql://"
                    (env :db-host) ":"
                    (env :db-port) "/"
-                   (env :db-name) "?"
+                   (env :postgres-name) "?"
                    "user=" (env :postgres-user)
                    "&password=" (env :postgres-password)))
 
