@@ -15,14 +15,12 @@
     ([request respond raise]
      (-> (handler request #(respond (content-type-response % content-type)) raise)))))
 
-(defn json-response [response]
-  (assoc response :body (json/write-str (:body response))))
-(defn wrap-json [handler]
-  (fn
-    ([request]
-     (-> (handler request) (json-response)))
-    ([request respond raise]
-     (-> (handler request #(respond (json-response %)) raise)))))
+(defn wrap-exceptions [handler]
+  (fn [request]
+    (try
+      (handler request)
+      (catch Exception e
+        {:status 400 :body (:errors [(.getMessage e)])}))))
 
 (defn data-response [response]
   (assoc response :body {:data (:body response)}))

@@ -8,6 +8,10 @@
   :start (defroutes r
            (GET "/users" request (db/get-all-users))
            (GET "/users/:id" [id :<< as-int] {:body (db/user-by-id {:id id})})
+           (POST "/users"
+                 {params :body}
+                 (let [user (db/insert-user params)]
+                   {:status 201 :body user}))
            (POST "/echo" request (str request))
            (GET "/health" [] "OK")))
 
