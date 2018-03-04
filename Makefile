@@ -26,8 +26,8 @@ rollback:
 
 .PHONY: test
 test:
-	docker-compose -f docker-compose.test.yml run web lein test
+	docker-compose -f ${DOCKERFILE} run web lein test
 
 test_runner:
-	docker-compose -f docker-compose.test.yml run web lein auto eftest
+	docker-compose -f ${DOCKERFILE} run web lein auto eftest
 
