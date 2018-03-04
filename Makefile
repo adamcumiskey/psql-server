@@ -1,6 +1,8 @@
 DOCKERFILE=docker-compose.yml
 ifeq ($(ENV), test)
 	DOCKERFILE=docker-compose.test.yml
+else ifeq($(ENV), ci)
+	DOCKERFILE=docker-compose.env.yml
 endif
 
 all:
@@ -23,7 +25,7 @@ rollback:
 
 .PHONY: test
 test:
-	docker-compose -f docker-compose.test.yml run web lein test
+	docker-compose -f docker-compose.test.yml run web lein eftest
 
 test_runner:
 	docker-compose -f docker-compose.test.yml run web lein auto eftest

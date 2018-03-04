@@ -1,0 +1,13 @@
+version: '3'
+services:
+  db:
+    image: postgres
+    env_file: .test.env
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.test
+    command: lein eftest
+    env_file: .test.env
+    depends_on:
+      - db
