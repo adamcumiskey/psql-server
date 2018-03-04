@@ -1,8 +1,8 @@
 DOCKERFILE=docker-compose.yml
 ifeq ($(ENV), test)
 	DOCKERFILE=docker-compose.test.yml
-else ifeq($(ENV), ci)
-	DOCKERFILE=docker-compose.env.yml
+else ifeq($(ENV), ci_test)
+	DOCKERFILE=docker-compose.ci.test.yml
 endif
 
 all:
