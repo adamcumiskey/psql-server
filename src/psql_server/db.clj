@@ -31,4 +31,4 @@
         (log/error (.getNextException e)))))
   ([file]
     (conman/with-transaction [connection]
-      ((seed file connection)))))
+      (seed file connection))))
