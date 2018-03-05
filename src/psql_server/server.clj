@@ -1,5 +1,6 @@
 (ns psql-server.server
-  (:require [mount.core :refer [defstate]]
+  (:require [clojure.tools.logging :as log]
+            [mount.core :refer [defstate]]
             [ring.adapter.jetty :as ring]
             [environ.core :refer [env]]
             [ring.middleware.json :refer [wrap-json-response wrap-json-body]]
@@ -18,6 +19,7 @@
       (middleware/wrap-exceptions)))
 
 (defstate server
-  :start (ring/run-jetty #'app {:port (Integer. (env :port))
-                                :join? false})
+  :start (do (log/info "Starting web server on port " (env :port))
+             (ring/run-jetty #'app {:port (Integer. (env :port))
+                                    :join? false}))
   :stop (.stop server))

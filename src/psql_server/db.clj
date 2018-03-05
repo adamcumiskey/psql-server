@@ -14,7 +14,8 @@
                    "&password=" (env :postgres-password)))
 
 (defstate ^:dynamic connection
-  :start (conman/connect! {:jdbc-url jdbc-url})
+  :start (do (log/info "Connecting to db: " (clojure.string/replace jdbc-url #"password=[^&]*" "password=<masked>"))
+             (conman/connect! {:jdbc-url jdbc-url}))
   :stop (conman/disconnect! connection))
 
 (def query-files (->> (clojure.java.io/file "resources/queries")
@@ -25,6 +26,7 @@
 
 (defn seed
   ([file connection]
+    (log/info "Seeding db with file: " file)
     (try
       (sql/db-do-commands connection true (clojure.string/split (slurp file) #";"))
       (catch Exception e
