@@ -19,33 +19,33 @@
 (use-fixtures :once start-db)
 (use-fixtures :each seed-data)
 
-(deftest get-user-by-id
-  (testing "get user by id"
-    (is (= {:id 1
-            :name "Adam Cumiskey"
-            :email "adam.cumiskey@gmail.com"}
-           (db/user-by-id {:id 1})))))
+; (deftest get-user-by-id
+;   (testing "get user by id"
+;     (is (= {:id 1
+;             :name "Adam Cumiskey"
+;             :email "adam.cumiskey@gmail.com"}
+;            (db/user-by-id {:id 1})))))
 
-(deftest get-all-users
-  (testing "get all users"
-    (is (= [{:id 1
-             :name "Adam Cumiskey"
-             :email "adam.cumiskey@gmail.com"}
-            {:id 2
-             :name "John Smith"
-             :email "john.smith@gmail.com"}
-            {:id 3
-             :name "Jane Doe"
-             :email "jane.doe@gmail.com"}]
-           (db/get-all-users)))))
+; (deftest get-all-users
+;   (testing "get all users"
+;     (is (= [{:id 1
+;              :name "Adam Cumiskey"
+;              :email "adam.cumiskey@gmail.com"}
+;             {:id 2
+;              :name "John Smith"
+;              :email "john.smith@gmail.com"}
+;             {:id 3
+;              :name "Jane Doe"
+;              :email "jane.doe@gmail.com"}]
+;            (db/get-all-users)))))
 
-(deftest create-user
-  (testing "create user"
-    (let [user {:name "Dave Jones" :email "dave.jones@gmail.com"}
-          expected (assoc user :id 4)]
-      (db/insert-user user)
-      (is (= expected
-             (db/user-by-id {:id 4})))
-      (is (not= -1
-                (.indexOf (db/get-all-users)
-                          expected))))))
+; (deftest create-user
+;   (testing "create user"
+;     (let [user {:name "Dave Jones" :email "dave.jones@gmail.com"}
+;           expected (assoc user :id 4)]
+;       (db/insert-user user)
+;       (is (= expected
+;              (db/user-by-id {:id 4})))
+;       (is (not= -1
+;                 (.indexOf (db/get-all-users)
+;                           expected))))))

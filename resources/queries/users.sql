@@ -2,8 +2,8 @@
 -- Users
 
 -- :name insert-user :! :n
-insert into users (name, email)
-values (:name, :email)
+insert into users (first_name, last_name, email, password)
+values (:first_name, :last_name, :email, crypt(:password, gen_salt('md5'))
 
 -- :name insert-users :! :n
 insert into users (name, email)
