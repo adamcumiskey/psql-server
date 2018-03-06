@@ -12,5 +12,6 @@ pom.xml.asc
 .env
 pg/
 postgres/
+rsa/
 *.swp
 *.swo

@@ -7,6 +7,7 @@
                  [org.clojure/java.jdbc "0.6.1"]
                  [org.clojure/tools.logging "0.3.1"]
                  [org.clojure/data.json "0.2.6"]
+                 [clj-jwt "0.1.1"]
                  [com.layerware/hugsql "0.4.8"]
                  [conman "0.7.6"]
                  [environ "1.1.0"]
