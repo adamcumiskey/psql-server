@@ -2,7 +2,12 @@
   (:require [clj-jwt.core :refer :all]
             [clj-jwt.key :refer [private-key public-key]]
             [clj-time.core :refer [now plus days]]
-            [environ.core :refer [env]]))
+            [environ.core :refer [env]]
+            [psql-server.db :as db]))
 
-(def rsa-private-key (private-key "rsa/private.pem" (env :ssh-password)))
-(def rsa-public-key (public-key "rsa/public.pem" (env :ssh-password)))
+(defn get-rsa-private-key [] (private-key "resources/rsa/private.pem" (env :ssh-password)))
+(defn get-rsa-public-key [] (public-key "resources/rsa/public.pem" (env :ssh-password)))
+
+(defn authorize [email password]
+  (let [user (db/user-by-email {:email email})]
+    (println user)))

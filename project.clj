@@ -25,7 +25,8 @@
   :target-path "target/%s"
   :profiles {:uberjar {:aot :all}
              :dev {:dependencies [[org.clojure/tools.namespace "0.3.0-alpha1"]
-                                  [tolitius/mount-up "0.1.1"]]
+                                  [tolitius/mount-up "0.1.1"]
+                                  [ring/ring-mock "0.3.2"]]
                    :source-paths ["dev"]
                    :resource-paths ["resources"]
                    :plugins [[migratus-lein "0.5.7"]

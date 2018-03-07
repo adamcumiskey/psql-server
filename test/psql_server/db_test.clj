@@ -26,18 +26,10 @@
 ;             :email "adam.cumiskey@gmail.com"}
 ;            (db/user-by-id {:id 1})))))
 
-; (deftest get-all-users
-;   (testing "get all users"
-;     (is (= [{:id 1
-;              :name "Adam Cumiskey"
-;              :email "adam.cumiskey@gmail.com"}
-;             {:id 2
-;              :name "John Smith"
-;              :email "john.smith@gmail.com"}
-;             {:id 3
-;              :name "Jane Doe"
-;              :email "jane.doe@gmail.com"}]
-;            (db/get-all-users)))))
+(deftest get-all-users
+  (testing "get all users"
+    (is (= 3
+           (count (db/get-all-users))))))
 
 ; (deftest create-user
 ;   (testing "create user"

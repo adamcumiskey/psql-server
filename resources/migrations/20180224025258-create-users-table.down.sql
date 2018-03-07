@@ -1,2 +1,1 @@
-drop extension if exists 'uuid-ossp'
-drop table if exists user;
+drop table if exists users

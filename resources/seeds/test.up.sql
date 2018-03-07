@@ -1,3 +1,8 @@
-insert into users (name, email) values ('Adam', 'Cumiskey', 'adam.cumiskey@gmail.com', 'password');
-insert into users (name, email) values ('John', 'Smith', 'john.smith@gmail.com', 'lakersfan97');
-insert into users (name, email) values ('Jane', 'Doe', 'jane.doe@gmail.com', 'borntorun');
+insert into users (first_name, last_name, email, password_hash)
+values ('Adam', 'Cumiskey', 'adam.cumiskey@gmail.com', 'password');
+
+insert into users (first_name, last_name, email, password_hash)
+values ('John', 'Smith', 'john.smith@gmail.com', 'password')
+
+insert into users (first_name, last_name, email, password_hash)
+values ('Jane', 'Doe', 'jane.doe@gmail.com', 'password');
