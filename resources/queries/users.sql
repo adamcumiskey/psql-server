@@ -1,9 +1,10 @@
--- :name insert-user :! :n
+-- :name insert-user :? :1
 insert into users (first_name, last_name, email, password_hash)
-values (:first_name, :last_name, :email, crypt(:password, gen_salt('md5'))
+values (:first_name, :last_name, :email, crypt(:password, gen_salt('md5')))
+returning *
 
--- :name insert-users :! :n
-insert into users (fist_name, last_name, email, password_hash)
+-- :name insert-users :! :*
+insert into users (first_name, last_name, email, password_hash)
 values :tuple*:users
 
 -- :name get-all-users :? :*
