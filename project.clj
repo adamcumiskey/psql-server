@@ -12,6 +12,11 @@
                  [conman "0.7.6"]
                  [environ "1.1.0"]
                  [org.slf4j/slf4j-log4j12 "1.7.9"]
+                 [log4j/log4j "1.2.17" :exlusions [javax.mail/mail
+                                                   javax.jms/jms
+                                                   com.sun.jmdk/jmxtools
+                                                   com.sun.jmx/jmxri]]
+                 [clj-logging-config "1.9.12"]
                  [migratus "1.0.6"]
                  [mount "0.1.12"]
                  [tolitius/mount-up "0.1.1"]

@@ -18,7 +18,7 @@ stop:
 repl:
 	docker-compose -f ${DOCKERFILE} run --service-ports web lein repl
 
-migration:
+migrate:
 	docker-compose -f ${DOCKERFILE} run web lein migratus migrate
 
 rollback:

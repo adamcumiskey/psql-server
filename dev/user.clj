@@ -1,10 +1,11 @@
 (ns user
   (:require [clojure.tools.namespace.repl :refer (refresh refresh-all)]
             [clojure.tools.logging :as log]
+            [clj-logging-config.log4j :as log-config]
             [mount.core :as mount]
             [mount-up.core :as mount-up]
             [migratus.core :as migratus]
-            [environ.core :refer [env]] 
+            [environ.core :refer [env]]
             [psql-server.db :as db]
             [conman.core :as conman]
             [clojure.java.jdbc :as sql]))

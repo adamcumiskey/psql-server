@@ -1,8 +1,7 @@
 insert into users (first_name, last_name, email, password_hash)
-values ('Adam', 'Cumiskey', 'adam.cumiskey@gmail.com', 'password');
-
+values ('Adam', 'Cumiskey', 'adam.cumiskey@gmail.com', crypt('password', gen_salt('md5')));
 insert into users (first_name, last_name, email, password_hash)
-values ('John', 'Smith', 'john.smith@gmail.com', 'password')
-
+values ('Jane', 'Smith', 'jane.smith@gmail.com', crypt('password', gen_salt('md5')));
 insert into users (first_name, last_name, email, password_hash)
-values ('Jane', 'Doe', 'jane.doe@gmail.com', 'password');
+values ('John', 'Doe', 'john.doe@gmail.com', crypt('password', gen_salt('md5')));
+

@@ -13,5 +13,6 @@ pom.xml.asc
 pg/
 postgres/
 rsa/
+.backup/
 *.swp
 *.swo

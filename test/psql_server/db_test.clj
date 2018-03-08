@@ -29,7 +29,18 @@
 (deftest get-all-users
   (testing "get all users"
     (is (= 3
-           (count (db/get-all-users))))))
+           (count (db/get-all-users db/connection))))))
+
+
+(deftest validate-password
+  (testing "can validate a password"
+    (is (= {:is_valid true}
+           (db/validate-password db/connection {:email "adam.cumiskey@gmail.com"
+                                                :password "password"}))))
+  (testing "cannot validate invalid password"
+    (is (= {:is_valid false}
+           (db/validate-password db/connection {:email "adam.cumiskey@gmail.com"
+                                                :password "jetsfan97"})))))
 
 ; (deftest create-user
 ;   (testing "create user"
