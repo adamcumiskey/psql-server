@@ -3,6 +3,7 @@
             [clojure.tools.logging :as log]
             [clojure.string :as string]
             [conman.core :as conman]
+            [hugsql.core :as hugsql]
             [mount.core :refer [defstate]]
             [environ.core :refer [env]]))
 
@@ -22,7 +23,9 @@
                       (file-seq)
                       (filter #(.isFile %))
                       (map #(str "queries/" (.getName %)))))
-(eval `(conman/bind-connection connection ~@query-files))
+(doseq [file query-files]
+  (hugsql/def-db-fns file {:quoting :ansi})
+  (hugsql/def-sqlvec-fns file {:quoting :ansi}))
 
 (defn seed
   ([file connection]

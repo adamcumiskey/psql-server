@@ -1,5 +1,7 @@
 create table if not exists users (
-  id serial primary key,
-  name varchar,
-  email varchar
-)
+  id varchar primary key default uuid_generate_v4(),
+  first_name varchar,
+  last_name varchar,
+  email varchar unique not null,
+  password_hash text
+);

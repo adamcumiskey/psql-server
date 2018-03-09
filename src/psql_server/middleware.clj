@@ -1,5 +1,7 @@
 (ns psql-server.middleware
-  (:require [clojure.data.json :as json]))
+  (:require [clojure.data.json :as json]
+            [conman.core :as conman]
+            [psql-server.auth :as auth]))
 
 (extend-type java.sql.Timestamp
   json/JSONWriter
