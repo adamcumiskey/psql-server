@@ -7,9 +7,11 @@
                  [org.clojure/java.jdbc "0.6.1"]
                  [org.clojure/tools.logging "0.3.1"]
                  [org.clojure/data.json "0.2.6"]
-                 [clj-jwt "0.1.1"]
+                 [buddy/buddy-auth "2.1.0"]
+                 [buddy/buddy-sign "2.2.0"]
                  [com.layerware/hugsql "0.4.8"]
                  [conman "0.7.6"]
+                 [clj-time "0.14.2"]
                  [environ "1.1.0"]
                  [org.slf4j/slf4j-log4j12 "1.7.9"]
                  [log4j/log4j "1.2.17" :exlusions [javax.mail/mail

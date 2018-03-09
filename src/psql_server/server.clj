@@ -16,7 +16,8 @@
       (wrap-json-response)
       (wrap-json-body {:keywords? true})
       (wrap-with-logger)
-      (middleware/wrap-exceptions)))
+      (middleware/wrap-exceptions)
+      (middleware/wrap-auth)))
 
 (defstate server
   :start (do (log/info "Starting web server on port " (env :port))

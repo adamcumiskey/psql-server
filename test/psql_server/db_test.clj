@@ -1,23 +1,10 @@
 (ns psql-server.db-test
   (:require [clojure.test :refer :all]
-            [conman.core :as conman]
-            [mount.core :as mount]
+            [psql-server.core-test :refer [start-db seed-test-data]]
             [psql-server.db :as db]))
 
-(defn start-db [f]
-  (mount/start)
-  (f)
-  (mount/stop))
-
-(defn seed-data [f]
-  (conman/with-transaction [db/connection]
-    (db/seed "resources/seeds/test.down.sql" db/connection)
-    (db/seed "resources/seeds/test.up.sql" db/connection)
-    (f)
-    (db/seed "resources/seeds/test.down.sql" db/connection)))
-
 (use-fixtures :once start-db)
-(use-fixtures :each seed-data)
+(use-fixtures :each seed-test-data)
 
 (def adam {:first_name "Adam"
            :last_name "Cumiskey"
@@ -47,7 +34,6 @@
     (let [user (try (db/insert-user db/connection david)
                     (catch java.sql.BatchUpdateException e
                       (throw (.getNextException e))))]
-      (print user)
       (is (not (nil? (db/user-by-id db/connection user)))))))
 
 (deftest create-users

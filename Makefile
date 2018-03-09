@@ -33,9 +33,5 @@ else
 endif
 
 test_runner:
-ifeq ($(ENV), ci_test)
-	docker-compose -f docker-compose.ci.test.yml run web lein auto eftest
-else
-	docker-compose -f docker-compose.test.yml run web lein auto eftest
-endif
+	docker-compose -f docker-compose.test.yml run web lein auto test
 
